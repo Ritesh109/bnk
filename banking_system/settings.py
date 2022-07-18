@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
+STATIC_DIR =os.path.join(BASE_DIR,'static')
+TEMPLATE_ROOT = os.path.join(BASE_DIR,'media')
+STATIC_ROOT =os.path.join(BASE_DIR,'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -58,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'banking_system.urls'
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -129,7 +131,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT =os.path.join(BASE_DIR ,'staticfiles')
+STATIC_FILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 ACCOUNT_NUMBER_START_FROM = 1000000000
 MINIMUM_DEPOSIT_AMOUNT = 10
 MINIMUM_WITHDRAWAL_AMOUNT = 10
@@ -144,3 +149,4 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
